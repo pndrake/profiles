@@ -477,10 +477,12 @@ hr {
     const observer = new IntersectionObserver(entries => {
 
 entries.forEach(entry => {
+  console.log(entry.intersectionRatio)
   const section = entry.target;
   const id = section.getAttribute('id');
   if (entry.intersectionRatio > 0) {
     
+    console.log(id, states[id])
 
     // Change the dropdown menu
     section.classList.add('active');
@@ -500,7 +502,7 @@ entries.forEach(entry => {
 sections.forEach(section => observer.observe(section));
 
       d3.select("#state-select").on("change", function () {
-        const selectedState = d3.select(this).property("value");
+        selectedState = d3.select(this).property("value");
         onStateSelected()
       });
 
