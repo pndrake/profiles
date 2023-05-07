@@ -337,34 +337,12 @@ hr {
       "WI": "Wisconsin",
       "WY": "Wyoming"
     };
-    // Create a new IntersectionObserver
-    const observer = new IntersectionObserver(entries => {
-
-      entries.forEach(entry => {
-        const section = entry.target;
-        const id = section.getAttribute('id');
-        if (entry.intersectionRatio > 0) {
-          console.log("observer", id, states[id], stateSelector.value)
-
-          // Change the dropdown menu
-          section.classList.add('active');
-          document.getElementById("state-select").value = states[id];
-
-          // Update the map
-          selectedState = states[id];
-          onStateSelected()
-        } else {
-          // If the section is not in view, remove the 'active' class from the section
-          section.classList.remove('active');
-        }
-      });
-    }, { threshold: 0.5 });
+   
 
     // Get all the section elements
     const sections = document.querySelectorAll('section');
 
-    // Observe changes to the class attribute of the section elements
-    sections.forEach(section => observer.observe(section));
+    
 
     const svg = d3.select("#map")
 
@@ -424,7 +402,7 @@ hr {
       onStateSelected = function () {
         // get the value of the selected state
         //  selectedState = stateSelector.property("value");
-        console.log(selectedState)
+       
         selectedState = selectedState
         // get the corresponding state shape object
         const selectedShape = stateShapes.features.find((d) => d.properties.name === selectedState);
@@ -481,6 +459,32 @@ hr {
         // reset the zoom level
         //svg.call(zoom.transform, d3.zoomIdentity);
       }
+
+       // Create a new IntersectionObserver
+    const observer = new IntersectionObserver(entries => {
+
+entries.forEach(entry => {
+  const section = entry.target;
+  const id = section.getAttribute('id');
+  if (entry.intersectionRatio > 0) {
+    
+
+    // Change the dropdown menu
+    section.classList.add('active');
+    document.getElementById("state-select").value = states[id];
+
+    // Update the map
+    selectedState = states[id];
+    onStateSelected()
+  } else {
+    // If the section is not in view, remove the 'active' class from the section
+    section.classList.remove('active');
+  }
+});
+}, { threshold: 0.5 });
+
+// Observe changes to the class attribute of the section elements
+sections.forEach(section => observer.observe(section));
 
       d3.select("#state-select").on("change", function () {
         const selectedState = d3.select(this).property("value");
