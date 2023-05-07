@@ -20,6 +20,19 @@
     font-size: 14px;
   }
 }
+#selector-container{
+  back-ground:white;
+  z-index:2
+}
+
+#section-container {
+      width: 100%;
+      padding-top: 10px;
+      max-width: 1200px;
+  margin: 0 auto;
+  z-index: 3
+
+    }
     body {
       display: flex;
       justify-content: center;
@@ -31,6 +44,8 @@
     #container {
       display: flex;
       width: 100%;
+      justify-content: center;
+      align-items: center;
     }
 
     #sidebar {
@@ -48,7 +63,8 @@
     #main-content {
       display: flex;
       flex-direction: column;
-      width: 75%;
+      width: 100%;
+      max-width:500px;
       padding: 20px;
     }
 
@@ -58,14 +74,10 @@
       position: relative;
       position: sticky;
       top: 20px;
+      z-index:10;
     }
 
-    #section-container {
-      width: 100%;
-      padding-top: 10px;
-      max-width: 1200px;
-  margin: 0 auto;
-    }
+   
 
     .section {
       padding-top: 10vh;
@@ -129,13 +141,6 @@ hr {
 <body>
 
   <div id="container">
-    <div id="sidebar">
-      <div id="selector-container">
-        <p>State</p>
-        <select id="state-select" tabindex="0"></select>
-        <br>
-      </div>
-    </div>
 
     <div id="main-content">
       <h2>Discovering Native American Communities: Honoring the People of America's Past</h2>
@@ -145,8 +150,13 @@ hr {
         land we call home and the people who shaped it. Through exploration of Native American communities, we can gain
         new perspectives and insights into the rich history of our nation. Join us as we delve into the fascinating
         world of America's past and honor the legacy of its first peoples.</p>
-
+       
       <div id="map-container">
+        <div id="selector-container">
+          <p>Select a state</p>
+          <select id="state-select" ></select>
+        </div>
+        <br>
         <svg id="map"></svg>
         <div class="white-rectangle"></div>
       </div>
