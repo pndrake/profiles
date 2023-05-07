@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Interactive Map</title>
+
+  <script src="https://d3js.org/topojson.v3.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+
+
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    #container {
+      display: flex;
+      width: 100%;
+    }
+
+    #sidebar {
+
+      position: sticky;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      width: 10%;
+      height: 100vh;
+      padding: 20px;
+      background-color: #f0f0f0;
+    }
+
+    #main-content {
+      display: flex;
+      flex-direction: column;
+      width: 75%;
+      padding: 20px;
+    }
+
+    #map-container {
+      width: 100%;
+      position: relative;
+      position: sticky;
+      top: 20px;
+    }
+
+    #section-container {
+      width: 100%;
+      padding-top: 10px;
+    }
+
+    .section {
+      padding-top: 10vh;
+    }
+
+    #map {
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    #state-select {
+      width: 100%;
+    }
+
+    .selected-state {
+      opacity: 1;
+    }
+
+    .unselected-state {
+      opacity: 0.4;
+    }
+
+
+    .footer {
+  width: 100%;
+  height: 100px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+hr {
+  width: 90%;
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo-container img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.logo-container h3 {
+  font-size: 24px;
+  font-weight: bold;
+}
+  </style>
+</head>
+
+<body>
+
+  <div id="container">
+    <div id="sidebar">
+      <div id="selector-container">
+        <p>State</p>
+        <select id="state-select" tabindex="0"></select>
+        <br>
+      </div>
+    </div>
+
+    <div id="main-content">
+      <h2>Discovering Native American Communities: Honoring the People of America's Past</h2>
+      <p>As we explore the history of the United States, it's important to remember and honor the people who lived in
+        America long before the arrival of European settlers. Native American communities were diverse and vibrant, with
+        unique cultures, languages, and traditions. Learning about these communities can deepen our understanding of the
+        land we call home and the people who shaped it. Through exploration of Native American communities, we can gain
+        new perspectives and insights into the rich history of our nation. Join us as we delve into the fascinating
+        world of America's past and honor the legacy of its first peoples.</p>
+
+      <div id="map-container">
+        <svg id="map"></svg>
+        <div class="white-rectangle"></div>
+      </div>
+      <div id="section-container">
+        <section class="section" id="AL"">
+        <h2>Alabama</h2>
+        <p>Alabama is a state in the southeastern region of the United States. Before European colonization, the area that is now Alabama was home to many Native American tribes. Today, the state is home to three federally recognized Native American tribes:</p>
+        <ul>
+          <li>The Poarch Band of Creek Indians</li>
+          <li>The Echota Cherokee Tribe of Alabama</li>
+          <li>The MOWA Band of Choctaw Indians</li>
+        </ul>
+        <p>These tribes have rich cultural histories that continue to influence the state of Alabama today.</p>
+      </section>
+      <section class=" state_AK section" id="AK">
+          <h2>Alaska</h2>
+          <p>Alaska is the largest state in the United States by area, and is home to many indigenous communities with
+            rich histories and cultures. Alaska is bordered by Canada to the east, the Arctic Ocean to the north, and
+            the Pacific Ocean to the south and west. The state has a unique landscape and climate, with glaciers,
+            mountains, and tundra covering much of its territory.</p>
+          <ul>
+            <li>The indigenous people of Alaska are divided into many distinct groups, including the Inupiaq, Yupik,
+              Aleut, Tlingit, Haida, and Tsimshian.</li>
+            <li>Alaska is home to many iconic animals, including brown bears, moose, and bald eagles.</li>
+            <li>Alaska is also known for its natural resources, including oil, gas, and minerals.</li>
+            <li>The state has a rich history of exploration and discovery, including the famous Klondike Gold Rush of
+              the late 19th century.</li>
+          </ul>
+        </section>
+
+        <section class="state_FL section" id="FL">
+          <h2>Florida</h2>
+          <p>Florida was home to several Native American tribes including the Apalachee, Calusa, Timucua, and Tocobaga
+            tribes.</p>
+          <ul>
+            <li>The Apalachee people lived in what is now the Tallahassee area and were known for their agriculture,
+              particularly growing corn and beans. They also built large earthen mounds, some of which still exist today
+              as archaeological sites.</p>
+            <li>The Calusa people lived on the southwestern coast of Florida and were skilled fishermen and traders.
+              They built impressive shell mounds and canals for transportation and fishing.</p>
+            <li>The Timucua people lived in northern and central Florida and were known for their complex chiefdoms and
+              large ceremonial centers. They were also skilled farmers and traders, and had extensive contact with other
+              tribes in the southeast.</p>
+            <li>The Tocobaga people lived in the Tampa Bay area and were known for their pottery and shell tools. They
+              were also skilled fishermen and traders, and had extensive contact with other tribes in the southeast.</p>
+          </ul>
+        </section>
+        <section class="state_ID section" id="ID">
+          <h2>Idaho</h2>
+          <p>Idaho is a state in the Pacific Northwest region of the United States. The state's name comes from a Native
+            American word "ídaahę́" which means "salmon."</p>
+          <ul>
+            <li>The Nez Perce Tribe was one of the largest and most powerful tribes in the Pacific Northwest. They were
+              known for their excellent horsemanship and were skilled traders.</li>
+            <li>The Shoshone-Bannock Tribes are two distinct tribes that were historically nomadic. They are known for
+              their beadwork and basketry.</li>
+            <li>The Coeur d'Alene Tribe has lived in the region for thousands of years and were skilled hunters and
+              fishermen. They were known for their trade with other tribes and for their artistic traditions.</li>
+          </ul>
+        </section>
+        <section class="state_NM section" id="NM">
+          <h2>New Mexico</h2>
+          <p>New Mexico is home to a rich Native American history, with evidence of human habitation dating back over 10,000 years. Some of the earliest tribes to live in the region were the Clovis and Folsom peoples, who were hunters and gatherers. Later, from 1000 BCE to 1500 CE, the Ancestral Puebloans, also known as the Anasazi, lived in the region and built impressive cliff dwellings and other structures. Today, the Pueblo people are the largest Native American group in New Mexico, with 19 different Pueblos scattered throughout the state. Other tribes that have lived in the area include the Navajo, Apache, and Comanche, among others.</p>
+          <ul>
+            <li>The Pueblo people are known for their impressive architecture, including the multi-storied Taos Pueblo, which is a UNESCO World Heritage Site.</li>
+            <li>The Navajo Nation is the largest Native American tribe in the United States, and many Navajo people live in New Mexico.</li>
+            <li>The Mescalero Apache tribe has a reservation in southern New Mexico and is known for their warrior tradition and horse culture.</li>
+            <li>The Comanche were a nomadic tribe that lived in New Mexico as well as Texas, Oklahoma, and Kansas. They were known for their horsemanship and raids on other tribes and settlers.</li>
+          </ul>
+        </section>
+        
+        <section class="state_OH section" id="OH">
+          <h2>Ohio</h2>
+          <p>Ohio is a state located in the Midwestern region of the United States. The state's largest metropolitan
+            area is Columbus.</p>
+          <ul>
+            <li>The Adena culture was prevalent in Ohio from 1000 BC to 200 BC. The culture was characterized by
+              earthworks, elaborate burial mounds, and artifacts made from copper, mica, and stone.</li>
+            <li>The Hopewell tradition flourished in Ohio from 200 BC to AD 500. The culture is known for its monumental
+              earthworks, including burial mounds, geometric enclosures, and walled hilltop enclosures.</li>
+            <li>The Fort Ancient culture inhabited the Ohio Valley from AD 1000 to 1750. They were known for their
+              large, fortified settlements, agricultural practices, and extensive trade networks.</li>
+            <li>The Shawnee tribe, originally from the Southeastern United States, migrated to Ohio in the 18th century.
+              They were known for their resistance to European settlement and played a significant role in the Ohio
+              Indian Wars.</li>
+          </ul>
+        </section>
+        <section class="state_TX section" id="TX">
+          <h2> Texas </h2>
+          <p> Texas has a rich history of Native American populations that have lived in the area for thousands of
+            years. The state is home to several federally recognized Native American tribes, including the
+            Alabama-Coushatta Tribe of Texas, the Kickapoo Traditional Tribe of Texas, the Ysleta del Sur Pueblo, and
+            the Tigua Indian Reservation. In addition, there are several other tribes that have lived in Texas over the
+            centuries, including the Comanche, Karankawa, Apache, and Caddo. </p>
+          <p> Today, many Native Americans in Texas continue to practice their traditional cultures and pass on their
+            customs to younger generations. Powwows and other cultural events are held throughout the state, and many
+            Native American artists and craftsmen create beautiful works that showcase their unique heritage. </p>
+          <ul>
+            <li> The Alabama-Coushatta Tribe of Texas operates a casino and entertainment center in Livingston, Texas.
+            </li>
+            <li> The Kickapoo Traditional Tribe of Texas operates the Lucky Eagle Casino in Eagle Pass, Texas. </li>
+            <li> The Ysleta del Sur Pueblo is a Tigua Indian tribe located near El Paso, Texas. </li>
+            <li> The Tigua Indian Reservation is located near El Paso, Texas, and is home to the Tigua tribe. </li>
+          </ul>
+        </section>
+        <section class="state_WY section" id="WY">
+          <h2>Wyoming</h2>
+          <p>Wyoming is a state in the western United States known for its vast wilderness areas and stunning natural
+            beauty. It is also a state with a rich history of Native American communities.</p>
+          <p>Wyoming is home to several Native American tribes, including the Shoshone, Arapaho, Crow, and Cheyenne.
+            These tribes have lived in the region for thousands of years and have a deep connection to the land and its
+            natural resources. They have a rich cultural heritage, with their own unique languages, customs, and
+            traditions.</p>
+          <p>The Shoshone, for example, were skilled hunters and gatherers who used the resources of the land to sustain
+            their way of life. The Arapaho were nomadic and followed the buffalo herds, while the Crow were known for
+            their horse breeding and trading. The Cheyenne were a powerful tribe that played an important role in the
+            region's history.</p>
+          <p>Today, many Native American communities in Wyoming continue to preserve their traditions and celebrate
+            their heritage through powwows, cultural events, and other activities. These events offer a glimpse into the
+            rich history and vibrant culture of Wyoming's Native American tribes.</p>
+        </section>
+      </div>
+      <div class="footer">
+        <hr>
+        <div class="logo-container">
+          Thank you for visiting our website and learning about the rich and diverse history of Native American communities across the United States. It is important to honor and remember the people who lived on this land for thousands of years before European settlers arrived. We hope that our website has provided you with valuable insights and knowledge. Please feel free to explore our other resources and share this information with others. Let us work together to build a better future for all.
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  
+
+</body>
+
+</html>
+
+  <script>
+    const width = 1600;
+    const height = 800;
+    const projection = d3.geoAlbersUsa().scale(1000).translate([width / 2, height / 2]);
+    const path = d3.geoPath(projection);
+
+    const defaultStroke = "#777";
+    const defaultFill = "steelblue";
+
+    const stateSelector = d3.select("#state-select");
+    let onStateSelected,
+      selectedState;
+
+    const states = {
+      "AL": "Alabama",
+      "AK": "Alaska",
+      "AZ": "Arizona",
+      "AR": "Arkansas",
+      "CA": "California",
+      "CO": "Colorado",
+      "CT": "Connecticut",
+      "DE": "Delaware",
+      "FL": "Florida",
+      "GA": "Georgia",
+      "HI": "Hawaii",
+      "ID": "Idaho",
+      "IL": "Illinois",
+      "IN": "Indiana",
+      "IA": "Iowa",
+      "KS": "Kansas",
+      "KY": "Kentucky",
+      "LA": "Louisiana",
+      "ME": "Maine",
+      "MD": "Maryland",
+      "MA": "Massachusetts",
+      "MI": "Michigan",
+      "MN": "Minnesota",
+      "MS": "Mississippi",
+      "MO": "Missouri",
+      "MT": "Montana",
+      "NE": "Nebraska",
+      "NV": "Nevada",
+      "NH": "New Hampshire",
+      "NJ": "New Jersey",
+      "NM": "New Mexico",
+      "NY": "New York",
+      "NC": "North Carolina",
+      "ND": "North Dakota",
+      "OH": "Ohio",
+      "OK": "Oklahoma",
+      "OR": "Oregon",
+      "PA": "Pennsylvania",
+      "RI": "Rhode Island",
+      "SC": "South Carolina",
+      "SD": "South Dakota",
+      "TN": "Tennessee",
+      "TX": "Texas",
+      "UT": "Utah",
+      "VT": "Vermont",
+      "VA": "Virginia",
+      "WA": "Washington",
+      "WV": "West Virginia",
+      "WI": "Wisconsin",
+      "WY": "Wyoming"
+    };
+    // Create a new IntersectionObserver
+    const observer = new IntersectionObserver(entries => {
+
+      entries.forEach(entry => {
+        const section = entry.target;
+        const id = section.getAttribute('id');
+        if (entry.intersectionRatio > 0) {
+          console.log("observer", id, states[id], stateSelector.value)
+
+          // Change the dropdown menu
+          section.classList.add('active');
+          document.getElementById("state-select").value = states[id];
+
+          // Update the map
+          selectedState = states[id];
+          onStateSelected()
+        } else {
+          // If the section is not in view, remove the 'active' class from the section
+          section.classList.remove('active');
+        }
+      });
+    }, { threshold: 0.5 });
+
+    // Get all the section elements
+    const sections = document.querySelectorAll('section');
+
+    // Observe changes to the class attribute of the section elements
+    sections.forEach(section => observer.observe(section));
+
+    const svg = d3.select("#map")
+
+    // Add the background white rectangle (note: this hides text scrolling under map)
+    svg.append("rect")
+      .attr("width", "100%")
+      .attr("height", "100%")
+      .attr("fill", "white");
+
+    const g_states = svg.append("g").attr("class", "states")
+    const g_stateLabels = svg.append("g").attr("class", "state-labels")
+
+    d3.json("https://unpkg.com/us-atlas@3.0.0/states-10m.json").then((us) => {
+
+      const stateShapes = topojson.feature(us, us.objects.states);
+      const defaultFill = "lightgray";
+      const defaultStroke = "white";
+      const fillScale = d3.scaleOrdinal().domain(stateShapes.features.map((d) => d.id)).range(d3.schemeCategory10);
+
+      const projection = d3.geoAlbersUsa().fitSize([width, height], stateShapes);
+      const path = d3.geoPath().projection(projection);
+
+      // Add options for each state
+      stateShapes.features.forEach(state => {
+        const option = stateSelector.append("option")
+          .attr("value", state.properties.name)
+          .text(state.properties.name);
+      });
+
+
+      svg
+        // .attr("width", "100%")
+        .attr("viewBox", [0, 0, width, height])
+      // .attr("style", "border: 1px solid black");
+
+      g_states
+        .selectAll(".state")
+        .data(stateShapes.features)
+        .join("path")
+        .attr("class", "state")
+        .attr("d", path)
+        .attr("stroke", defaultStroke)
+        .attr("fill", (d) => fillScale(d.id))
+        .append("title")
+        .text((d) => d.properties.name);
+
+      g_stateLabels
+        .selectAll(".state-label")
+        .data(stateShapes.features)
+        .join("text")
+        .attr("class", "state-label")
+        .attr("text", d => d.properties.name)
+        .attr("stroke", "black")
+        .attr("fill", "black");
+
+      // define the event listener function for the state selector
+      onStateSelected = function () {
+        // get the value of the selected state
+        //  selectedState = stateSelector.property("value");
+        console.log(selectedState)
+        selectedState = selectedState
+        // get the corresponding state shape object
+        const selectedShape = stateShapes.features.find((d) => d.properties.name === selectedState);
+
+
+        const opacity_selected = 1,
+          opacity_unselected = 0.1;
+
+        g_states
+          .selectAll(".state")
+          .filter((d) => d.properties.name !== selectedState)
+          .transition()
+          .duration(300)
+          .attr("opacity", opacity_unselected)
+        // apply the new transform to the g_states element with a transition
+
+        g_states.selectAll(".state")
+          .filter((d) => d.properties.name === selectedState)
+          // .attr("class", "selected-state")
+          .transition()
+          .duration(500)
+          .attr("opacity", 1)
+
+
+        // compute the bounding box of the selected shape
+        const [[x0, y0], [x1, y1]] = path.bounds(selectedShape);
+
+        // compute the width and height of the bounding box
+        const bbwidth = x1 - x0;
+        const bbheight = y1 - y0;
+
+        // compute the scale factor needed to zoom in to the selected shape
+        const scale = 0.4 / Math.max(bbwidth / width, bbheight / height);
+
+        // compute the center point of the bounding box
+        const cx = (x0 + x1) / 2;
+        const cy = (y0 + y1) / 2;
+
+
+        /// define the new transform for the zoom
+        const newTransform = d3.zoomIdentity
+          .translate(width / 2 - scale * cx, height / 2 - scale * cy)
+          .scale(scale);
+
+        // define the transition duration
+        const duration = 700;
+
+        // apply the new transform to the g_states element with a transition
+        g_states
+          .transition()
+          .duration(duration)
+          .attr("transform", newTransform);
+
+        // reset the zoom level
+        //svg.call(zoom.transform, d3.zoomIdentity);
+      }
+
+      d3.select("#state-select").on("change", function () {
+        const selectedState = d3.select(this).property("value");
+        onStateSelected()
+      });
+
+    })
+
+
+
+
+
+  </script>
+
